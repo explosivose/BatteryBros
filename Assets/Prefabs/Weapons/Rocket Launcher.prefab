@@ -40,6 +40,7 @@ GameObject:
   - 82: {fileID: 82000012190207912}
   - 114: {fileID: 114000010889463232}
   - 114: {fileID: 114000011329000620}
+  - 135: {fileID: 135000010311860980}
   m_Layer: 10
   m_Name: Rocket Launcher
   m_TagString: Untagged
@@ -55,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 1000013386907560}
   m_LocalRotation: {x: -0, y: 0.27587026, z: -0, w: 0.9611949}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 32.128002, z: 0}
   m_Children:
   - {fileID: 4000013595757416}
@@ -207,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fdecb6670df4fa9b82777764d0d7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equippedPosition: {x: 0, y: 0, z: 0}
+  equippedPosition: {x: 0.5, y: 0, z: 1}
   sounds:
     volume: 1
     equip: {fileID: 0}
@@ -234,4 +235,19 @@ MonoBehaviour:
     minAngle: 8
     deterioration: 1
     recoveryRate: 1
+  kickback:
+    enabled: 0
+    amount: 1
   readyTime: 0.5
+--- !u!135 &135000010311860980
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013386907560}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}

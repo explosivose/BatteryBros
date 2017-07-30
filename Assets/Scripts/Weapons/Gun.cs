@@ -19,11 +19,18 @@ public class Gun : MonoBehaviour {
 		public float angle { get; set; }
 	}
 
+	[System.Serializable]
+	public class Kickback {
+		public bool enabled = false;
+		public float amount = 1f;
+	}
+
 	public Transform projectile;
 	public AudioLibrary sounds = new AudioLibrary();
 	public int shots = 1;			// how many shots in one fire?
 	public float rateOfFire;		// how many fires in one second?
 	public Spread spread = new Spread();
+	public Kickback kickback = new Kickback();
 	public float readyTime;			// how much time to wait after equipping
 
 	private AudioSource _audio;
@@ -55,10 +62,10 @@ public class Gun : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//if (!_equip.equipped)
-		//	return;
-		//if (!_ready)
-		//	return;
+		if (!_equip.equipped)
+			return;
+		if (!_ready)
+			return;
 		if (Input.GetButton ("Fire1") && !_firing) {
 			Debug.Log ("Fire!");
 			StartCoroutine (Fire ());

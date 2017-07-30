@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Rigidbody))]
 public class Equippable : MonoBehaviour {
 
 	[System.Serializable]
@@ -18,10 +19,12 @@ public class Equippable : MonoBehaviour {
 
 	private bool _equipped;
 	private AudioSource _audio;
+	private Rigidbody _rigidbody;
 
 	public void Equip() {
 		_equipped = true;
 		PlaySound (sounds.equip);
+		_rigidbody.isKinematic = true;
 		SendMessage ("OnEquip", SendMessageOptions.DontRequireReceiver);
 	}
 
@@ -29,6 +32,7 @@ public class Equippable : MonoBehaviour {
 		_equipped = false;
 		PlaySound (sounds.drop);
 		SendMessage ("OnDrop", SendMessageOptions.DontRequireReceiver);
+		_rigidbody.isKinematic = false;
 	}
 
 	void PlaySound(AudioClip clip, bool loop = false) {
@@ -38,9 +42,16 @@ public class Equippable : MonoBehaviour {
 		_audio.Play ();
 	}
 
-
 	void Awake () {
 		_audio = GetComponent<AudioSource> ();
+		_rigidbody = GetComponent<Rigidbody> ();
+	}
+
+	void Update() {
+		if (_equipped) {
+			transform.localPosition = Vector3.Lerp (transform.localPosition, equippedPosition, Time.deltaTime * 2f);
+			transform.localRotation = Quaternion.Lerp (transform.localRotation, Quaternion.identity, Time.deltaTime * 4f);
+		}
 	}
 
 }
